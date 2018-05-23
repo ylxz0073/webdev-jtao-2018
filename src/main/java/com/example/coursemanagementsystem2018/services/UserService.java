@@ -12,6 +12,8 @@ import com.example.coursemanagementsystem2018.repositories.UserRepository;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 
 
 @RestController
@@ -33,6 +35,20 @@ public class UserService {
 	@DeleteMapping("/api/user/{userId}")
 	public void deleteUser(@PathVariable("userId") int id) {
 		repository.deleteById(id);
+	}
+	
+//	@GetMapping("/api/user/{username}")
+	public User findUserByUsername(@PathVariable("username") String username) {
+		return repository.findUserByUsername(username);
+	}
+	
+	@PostMapping("/api/register")
+	public User register(@RequestBody User user, HttpSession session) {
+		if (repository.findUserByUsername(user.getUsername()) == null) {
+			repository.save(user);
+			session.setAttribute("user", user);
+		}
+		return null;
 	}
 
 }
