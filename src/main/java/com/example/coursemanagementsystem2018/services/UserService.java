@@ -47,6 +47,16 @@ public class UserService {
 		if (repository.findUserByUsername(user.getUsername()) == null) {
 			repository.save(user);
 			session.setAttribute("user", user);
+			return user;
+		}
+		return null;
+	}
+	
+	@PostMapping("/api/login")
+	public User login(@RequestBody User user, HttpSession session) {
+		if (repository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword()) == null) {
+			session.setAttribute("user", user);
+			return user;
 		}
 		return null;
 	}
