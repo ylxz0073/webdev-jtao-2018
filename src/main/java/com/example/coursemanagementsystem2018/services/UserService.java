@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,6 +60,25 @@ public class UserService {
 			return user;
 		}
 		return null;
+	}
+	
+	@PutMapping("/api/profile")
+	public User updateProfile(@RequestBody User user, HttpSession session) {
+		User userFound = (User)session.getAttribute("user");
+		if ( userFound!= null) {
+			userFound.setDateOfBirth(user.getDateOfBirth());
+			userFound.setEmail(user.getEmail());
+			userFound.setPhone(user.getPhone());
+			userFound.setRole(user.getRole());
+		}
+		return null;
+	}
+	
+	@PostMapping("/api/logout")
+	public User login(HttpSession session) {
+		User cur = (User)session.getAttribute("user");
+		session.setAttribute("user", null);
+		return cur;
 	}
 
 }
