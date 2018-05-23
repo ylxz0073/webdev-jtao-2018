@@ -17,6 +17,14 @@ function UserServiceClient() {
 
     }
 
+    function logout() {
+
+    }
+
+    function updateProfile() {
+        
+    }
+
     function createUser(user, callback) {
         return fetch(self.url, {
             method: 'post',
