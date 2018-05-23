@@ -15,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-    <script src="../services/user.service.client.js"></script>
+    <script src="../../services/user.service.client.js"></script>
     <script src="user-admin.controller.client.js"></script>
 
 </head>
@@ -33,25 +33,29 @@
         </tr>
         <tr class="wbdv-form">
             <td>
-                <input id="usernameFld "
+                <input id="usernameFld"
+                       type="text"
                        class="form-control"
                        placeholder="Username" />
             </td>
             <td>
-                <input id="passwordFld "
+                <input id="passwordFld"
+                       type="text"
                        class="form-control"
                        placeholder="Password" />
             </td>
-            <td><input id="firstNameFld "
+            <td><input id="firstNameFld"
+                       type="text"
                        class="form-control"
                        placeholder="First Name" />
             </td>
-            <td><input id="lastNameFld "
+            <td><input id="lastNameFld"
+                       type="text"
                        class="form-control"
                        placeholder="Last Name" />
             </td>
             <td>
-                <select id="roleFld " class="form-control">
+                <select id="roleFld" class="form-control">
                     <option value="FACULTY">Faculty</option>
                     <option value="STUDENT">Student</option>
                 </select>
