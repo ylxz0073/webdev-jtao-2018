@@ -26,6 +26,6 @@ function UserServiceClient() {
     function deleteUser(userId, callback) {
 
     }
-    
+
 
 }

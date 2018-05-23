@@ -1,4 +1,4 @@
-package webdev.models;
+package com.example.coursemanagementsystem2018.models;
 import java.sql.Date;
 
 import javax.persistence.Entity;

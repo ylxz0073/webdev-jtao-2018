@@ -1,4 +1,4 @@
-package webdev.repositories;
+package com.example.coursemanagementsystem2018.repositories;
 
 import org.apache.catalina.User;
 import org.springframework.data.repository.CrudRepository;
