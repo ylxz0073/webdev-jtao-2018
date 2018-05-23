@@ -22,7 +22,7 @@ function UserServiceClient() {
     }
 
     function updateProfile() {
-        
+
     }
 
     function createUser(user, callback) {

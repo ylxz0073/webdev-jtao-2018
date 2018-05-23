@@ -7,6 +7,7 @@
         $lastNameFld;
     var $userRowTemplate, $tbody;
     var userService;
+
     jQuery(main);
 
 
@@ -36,15 +37,10 @@
         var lastName = $lastNameFld.val();
         var role = $('#roleFld').val();
 
-        var user = {
-            username: username,
-            password: password,
-            firstName: firstName,
-            lastName: lastName,
-            role: role
-        };
 
-        // console.log(user);
+        var user = new User(username, password, firstName, lastName);
+        user.setRole(role);
+        console.log(user);
         userService.createUser(user).then(findAllUsers);
 
     }
