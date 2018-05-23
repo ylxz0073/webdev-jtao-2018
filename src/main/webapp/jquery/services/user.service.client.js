@@ -5,10 +5,15 @@ function UserServiceClient() {
     this.deleteUser = deleteUser;
     this.updateUser = updateUser;
     this.register = register;
+    this.login = login;
     this.url = 'http://localhost:8080/api/user';
     var self = this;
 
-    function register(){
+    function register() {
+
+    }
+
+    function login() {
 
     }
 
