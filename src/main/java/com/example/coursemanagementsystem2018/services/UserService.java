@@ -12,6 +12,7 @@ import com.example.coursemanagementsystem2018.models.User;
 import com.example.coursemanagementsystem2018.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +27,33 @@ public class UserService {
 	@GetMapping("/api/user")
 	public List<User> findAllUsers() {
 		return (List<User>)repository.findAll();
+	}
+	
+	@GetMapping("/api/user/{userId}")
+	public User findUserById(@PathVariable("userId") int id) {
+		Optional<User> data = repository.findById(id);
+		
+		if (data.isPresent()) {
+			System.out.println(data.get().getUsername());
+			return data.get();
+		}
+		return null;
+	}
+	
+	@PutMapping("/api/user/{userId}")
+	public User updateUser(@PathVariable("userId") int userId, @RequestBody User newUser ) {
+		Optional<User> data = repository.findById(userId);
+		if (data.isPresent()) {
+			User user = data.get();
+			user.setFirstName(newUser.getFirstName());
+			user.setLastName(newUser.getLastName());
+			user.setUsername(newUser.getUsername());
+			user.setPassword(newUser.getPassword());
+			user.setRole(newUser.getRole());
+			repository.save(user);
+			return user;
+		}
+		return null;
 	}
 	
 	@PostMapping("/api/user")
@@ -61,6 +89,8 @@ public class UserService {
 		}
 		return null;
 	}
+	
+	
 	
 	@PutMapping("/api/profile")
 	public User updateProfile(@RequestBody User user, HttpSession session) {
