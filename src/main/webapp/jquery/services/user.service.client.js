@@ -8,6 +8,7 @@ function UserServiceClient() {
     this.login = login;
     this.url = 'http://localhost:8080/api/user';
     this.registerUrl = 'http://localhost:8080/api/register';
+    this.loginUrl = 'http://localhost:8080/api/login';
     var self = this;
 
     function register(userCredential) {
@@ -28,8 +29,21 @@ function UserServiceClient() {
 
     }
 
-    function login() {
-
+    function login(userCredential) {
+        return fetch(self.loginUrl, {
+            method: 'post',
+            body: JSON.stringify(userCredential),
+            credentials: 'same-origin',
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(function(response){
+            if(response.ok){
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
     function logout() {

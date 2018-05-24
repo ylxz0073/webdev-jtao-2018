@@ -17,7 +17,7 @@
     }
 
     function register() {
-        
+
         var username = $usernameFld.val(),
             password = $passwordFld.val(),
             verifypassword = $verifyPasswordFld.val();

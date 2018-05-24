@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.coursemanagementsystem2018.models.User;
@@ -25,7 +26,12 @@ public class UserService {
 	
 	
 	@GetMapping("/api/user")
-	public List<User> findAllUsers() {
+	public List<User> findAllUsers(@RequestParam(name="username", required=false) String username, @RequestParam(name="password", required=false) String password) {
+		if (username != null && password != null) {
+			return (List<User>)repository.findUserByUsernameAndPassword(username, password);
+		} else if (username != null) {
+			return (List<User>)repository.findUserByUsername(username);
+		}
 		return (List<User>)repository.findAll();
 	}
 	
@@ -66,15 +72,15 @@ public class UserService {
 		repository.deleteById(id);
 	}
 	
-	@GetMapping("/api/user/{username}")
-	public Iterable<User> findUserByUsername(@PathVariable("username") String username) {
-		return repository.findUserByUsername(username);
-	}
+//	@GetMapping("/api/user/{username}")
+//	public Iterable<User> findUserByUsername(@PathVariable("username") String username) {
+//		return repository.findUserByUsername(username);
+//	}
 	
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession session) throws Exception{
 //		System.out.println("###########" + ((List<User>)findUserByUsername(user.getUsername())).size() + "############");
-		if (((List<User>)findUserByUsername(user.getUsername())).size() != 0) {
+		if (((List<User>)findAllUsers(user.getUsername(), null)).size() != 0) {
 			throw new Exception("duplicate username");
 		}
 		repository.save(user);
@@ -84,12 +90,15 @@ public class UserService {
 	}
 	
 	@PostMapping("/api/login")
-	public User login(@RequestBody User user, HttpSession session) {
-		if (repository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword()) == null) {
-			session.setAttribute("user", user);
-			return user;
+	public User login(@RequestBody User user, HttpSession session) throws Exception{
+		List<User> results = ((List<User>)repository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword()));
+//		System.out.println("##########" + results.size() + "#########");
+		if (results.size() == 0) {
+			throw new Exception("can't find matched credential");
+			
 		}
-		return null;
+		session.setAttribute("user", user);
+		return results.get(0);
 	}
 	
 	
