@@ -75,55 +75,59 @@ public class UserService {
 	
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession session) throws Exception{
-//		System.out.println("###########" + ((List<User>)findUserByUsername(user.getUsername())).size() + "############");
 		if (((List<User>)findAllUsers(user.getUsername(), null)).size() != 0) {
 			throw new Exception("duplicate username");
 		}
-		repository.save(user);
+		createUser(user);
 		session.setAttribute("user", user);
+		System.out.println("######### register: " + ((User)session.getAttribute("user")).getUsername() + " #########");
 		return user;
 		
 	}
 	
 	@PostMapping("/api/login")
 	public User login(@RequestBody User user, HttpSession session) throws Exception{
-		List<User> results = ((List<User>)repository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword()));
-//		System.out.println("##########" + results.size() + "#########");
+		List<User> results = ((List<User>)findAllUsers(user.getUsername(), user.getPassword()));
+
 		if (results.size() == 0) {
 			throw new Exception("can't find matched credential");
 			
 		}
-		session.setAttribute("user", user);
+		session.setAttribute("user", results.get(0));
+		System.out.println("######### login: " + ((User)session.getAttribute("user")).getUsername() + " " + ((User)session.getAttribute("user")).getPhone() +" #########");
 		return results.get(0);
 	}
 	
-	
+	@GetMapping("/api/profile")
+	public User profile(HttpSession session) {
+		User currentUser = (User)session.getAttribute("user");
+		return currentUser;
+	}
 	
 	@PutMapping("/api/profile")
 	public User updateProfile(@RequestBody User user, HttpSession session) {
 		User currentUser = (User)session.getAttribute("user");
-
-		System.out.println("########" + currentUser.getUsername() + "######");
+		if(currentUser == null) System.out.println("######## update: " + " NULL " + "######");
+		System.out.println("######## update: " + currentUser.getUsername() + currentUser.getPhone() + "######");
 		if (currentUser != null) {
-			List<User> users = (List<User>)findAllUsers(currentUser.getUsername(), null);
-			if (users.size() > 0) {
-				User userFound = users.get(0);
-				userFound.setDateOfBirth(user.getDateOfBirth());
-				userFound.setPhone(user.getPhone());
-				userFound.setEmail(user.getEmail());
-				userFound.setRole(user.getRole());
-				repository.save(userFound);
-				return userFound;
-			}
+			currentUser.setDateOfBirth(user.getDateOfBirth());
+			currentUser.setPhone(user.getPhone());
+			currentUser.setEmail(user.getEmail());
+			currentUser.setRole(user.getRole());
+			repository.save(currentUser);
+			return currentUser;
+			
 		}
-		
+
 		return null;
 	}
 	
 	@PostMapping("/api/logout")
 	public User logout(HttpSession session) {
 		User cur = (User)session.getAttribute("user");
+		System.out.println("######### logout: " + ((User)session.getAttribute("user")).getUsername() + " " + cur.getPhone() + " #########");
 		session.invalidate();
+		
 		return cur;
 	}
 

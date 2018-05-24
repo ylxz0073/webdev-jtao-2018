@@ -22,15 +22,17 @@
         $updateBtn.click(updateProfile);
         $logoutBtn.click(logout);
 
-        var currentUser = JSON.parse(localStorage.getItem("currentLoginUser"));
+        userService.getProfile().then(function(currentUser){
+            // console.log(currentUser);
+            renderUser(currentUser);
+        });
 
-        console.log(currentUser);
-        renderUser(currentUser);
+
     }
 
     function logout() {
         userService.logout();
-
+        localStorage.setItem("currentLoginUser", null);
         window.location.href = "http://localhost:8080/jquery/components/login/login.template.client.html";
     }
 
@@ -45,10 +47,17 @@
             role: role,
             dateOfBirth: dateOfBirth
         }
-        userService.updateProfile(user);
+        // console.log(user);
+        userService.updateProfile(user).then(function(updated){
+            if(updated) {
+                console.log(updated);
+                alert("update success!");
+            }
+        }) ;
     }
 
     function renderUser(user) {
+        // console.log(user);
         $usernameFld.val(user.username);
         $phoneFld.val(user.phone);
         $roleFld.val(user.role);

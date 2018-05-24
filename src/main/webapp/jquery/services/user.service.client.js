@@ -8,24 +8,38 @@ function UserServiceClient() {
     this.login = login;
     this.logout = logout;
     this.updateProfile = updateProfile;
+    this.getProfile = getProfile;
     this.url = 'http://localhost:8080/api/user';
     this.registerUrl = 'http://localhost:8080/api/register';
     this.loginUrl = 'http://localhost:8080/api/login';
     this.logoutUrl = 'http://localhost:8080/api/logout';
     this.profileUrl = 'http://localhost:8080/api/profile';
-    var self = this;
+    var self = this
+
+    function getProfile() {
+        return fetch(self.profileUrl, {
+            credentials: 'same-origin'
+        }).then(function(response){
+
+            return response.json();
+        // .then(function(result){
+        //         return result;
+        //     });
+        })
+    }
 
     function register(userCredential) {
 
         return fetch(self.registerUrl, {
             method: 'post',
+            credentials: 'same-origin',
             body: JSON.stringify(userCredential),
             headers: {
                 'content-type': 'application/json'
             }
         }).then(function(response){
             if(response.ok){
-                return true;
+                return response.json();
             } else {
                 return false;
             }
@@ -64,7 +78,7 @@ function UserServiceClient() {
     }
 
     function updateProfile(user) {
-        fetch(self.profileUrl, {
+        return fetch(self.profileUrl, {
             method: 'put',
             credentials: 'same-origin',
             body: JSON.stringify(user),
@@ -72,7 +86,11 @@ function UserServiceClient() {
                 'content-type': 'application/json'
             }
         }).then(function(response){
-            return response.json();
+            if(response.ok){
+                return response.json();
+            } else {
+                return false;
+            }
         });
     }
 
@@ -107,14 +125,13 @@ function UserServiceClient() {
             headers: {
                 'content-type': 'application/json'
             }
-        })
-            .then(function(response){
-                if (response.bodyUsed) {
-                    return response.json();
-                } else {
-                    return null;
-                }
-            });
+        }).then(function(response){
+            if(response.ok){
+                return response.json();
+            } else {
+                return false;
+            }
+        });
     }
 
     function deleteUser(userId, callback) {

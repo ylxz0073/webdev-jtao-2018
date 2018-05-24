@@ -22,14 +22,13 @@
             password = $passwordFld.val(),
             verifypassword = $verifyPasswordFld.val();
         if (password === verifypassword) {
-            var userCredential = {
-                username: username,
-                password: password
-            }
+
+            var userCredential = new User(username, password);
             userService.register(userCredential).then(function(result){
-                // console.log(result);
-                if (result == true) {
-                    alert("register success!");
+
+                if (result) {
+                    // console.log(result);
+                    window.location.href = "http://localhost:8080/jquery/components/profile/profile.template.client.html";
                 } else {
                     alert("try another username!");
                 }

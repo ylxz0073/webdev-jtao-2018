@@ -11,7 +11,7 @@
           href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="user-admin.style.client.css">
+    <link rel="stylesheet" type="text/css" href="user-admin.style.client.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
@@ -22,73 +22,74 @@
 </head>
 <body>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Role</th>
-            <th>&nbsp;</th>
-        </tr>
-        <tr class="wbdv-form">
-            <td>
-                <input id="usernameFld"
-                       type="text"
-                       class="form-control"
-                       placeholder="Username" />
-            </td>
-            <td>
-                <input id="passwordFld"
-                       type="text"
-                       class="form-control"
-                       placeholder="Password" />
-            </td>
-            <td><input id="firstNameFld"
-                       type="text"
-                       class="form-control"
-                       placeholder="First Name" />
-            </td>
-            <td><input id="lastNameFld"
-                       type="text"
-                       class="form-control"
-                       placeholder="Last Name" />
-            </td>
-            <td>
-                <select id="roleFld" class="form-control">
-                    <option value="FACULTY">Faculty</option>
-                    <option value="STUDENT">Student</option>
-                </select>
-            </td>
-            <td>
-                <span class="float-right" style="white-space: nowrap">
-                    <i class="fa-2x fa fa-search wbdv-search"></i>
-                    <i class="fa-2x fa fa-plus wbdv-create"></i>
-                    <i class="fa-2x fa fa-check wbdv-update"></i>
-                </span>
-            </td>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Role</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr class="wbdv-form">
+                <td>
+                    <input id="usernameFld"
+                           type="text"
+                           class="form-control"
+                           placeholder="Username" />
+                </td>
+                <td>
+                    <input id="passwordFld"
+                           type="text"
+                           class="form-control"
+                           placeholder="Password" />
+                </td>
+                <td><input id="firstNameFld"
+                           type="text"
+                           class="form-control"
+                           placeholder="First Name" />
+                </td>
+                <td><input id="lastNameFld"
+                           type="text"
+                           class="form-control"
+                           placeholder="Last Name" />
+                </td>
+                <td>
+                    <select id="roleFld" class="form-control">
+                        <option value="FACULTY">Faculty</option>
+                        <option value="STUDENT">Student</option>
+                    </select>
+                </td>
+                <td>
+                    <span class="float-right" style="white-space: nowrap">
+                        <i class="fa-2x fa fa-search wbdv-search"></i>
+                        <i class="fa-2x fa fa-plus wbdv-create"></i>
+                        <i class="fa-2x fa fa-check wbdv-update"></i>
+                    </span>
+                </td>
 
-        </tr>
-    </thead>
+            </tr>
+        </thead>
 
-    <tbody class="wbdv-tbody">
-        <tr class="wbdv-template wbdv-user wbdv-hidden">
-            <td class="wbdv-username">ada</td>
-            <td>&nbsp;</td>
-            <td class="wbdv-first-name">Ada</td>
-            <td class="wbdv-last-name">Lovelace</td>
-            <td class="wbdv-role">FACULTY</td>
-            <td class="wbdv-actions">
-                <span class="float-right">
-                    <i id="wbdv-remove" class="fa-2x fa fa-times wbdv-remove"></i>
-                    <i id="wbdv-edit" class="fa-2x fas fa-pencil-alt wbdv-edit" aria-hidden="true"></i>
-                </span>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+        <tbody class="wbdv-tbody">
+            <tr class="wbdv-template wbdv-user wbdv-hidden">
+                <td class="wbdv-username">ada</td>
+                <td>&nbsp;</td>
+                <td class="wbdv-first-name">Ada</td>
+                <td class="wbdv-last-name">Lovelace</td>
+                <td class="wbdv-role">FACULTY</td>
+                <td class="wbdv-actions">
+                    <span class="float-right">
+                        <i id="wbdv-remove" class="fa-2x fa fa-times wbdv-remove"></i>
+                        <i id="wbdv-edit" class="fa-2x fas fa-pencil-alt wbdv-edit" aria-hidden="true"></i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
