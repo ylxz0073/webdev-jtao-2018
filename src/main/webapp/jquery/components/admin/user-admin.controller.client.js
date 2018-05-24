@@ -38,6 +38,15 @@
     }
 
     function createUser() {
+
+        var user = getUserFromForm();
+
+        clearForm();
+        userService.createUser(user).then(findAllUsers);
+
+    }
+
+    function getUserFromForm(){
         var username = $usernameFld.val();
         var password = $passwordFld.val();
         var firstName = $firstNameFld.val();
@@ -47,10 +56,7 @@
 
         var user = new User(username, password, firstName, lastName);
         user.setRole(role);
-        // console.log(user);
-        clearForm();
-        userService.createUser(user).then(findAllUsers);
-
+        return user;
     }
 
     function findAllUsers() {
@@ -84,29 +90,14 @@
     function updateUser() {
         // put user information on form
         var userId = $form.attr('id');
-        // console.log(userId);
-        var username = $usernameFld.val();
-        var password = $passwordFld.val();
-        var firstName = $firstNameFld.val();
-        var lastName = $lastNameFld.val();
-        var role = $('#roleFld').val();
-
-
-        var newUser = new User(username, password, firstName, lastName);
-        newUser.setRole(role);
+        var newUser = getUserFromForm();
 
         if (userId != null && userId != -1) {
             $form.attr('id', -1);
-            var user = userService.findUserById(userId).then(
-                function(user){
-                    // console.log(user);
-                    clearForm();
-                    userService
-                        .updateUser(userId, newUser)
-                        .then(findAllUsers);
-                }
-            );
-
+            clearForm();
+            userService
+                .updateUser(userId, newUser)
+                .then(findAllUsers);
 
         }
 
