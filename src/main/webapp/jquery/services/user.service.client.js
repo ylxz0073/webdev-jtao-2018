@@ -7,9 +7,24 @@ function UserServiceClient() {
     this.register = register;
     this.login = login;
     this.url = 'http://localhost:8080/api/user';
+    this.registerUrl = 'http://localhost:8080/api/register';
     var self = this;
 
-    function register() {
+    function register(userCredential) {
+
+        return fetch(self.registerUrl, {
+            method: 'post',
+            body: JSON.stringify(userCredential),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(function(response){
+            if(response.ok){
+                return true;
+            } else {
+                return false;
+            }
+        });
 
     }
 

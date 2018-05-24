@@ -66,19 +66,21 @@ public class UserService {
 		repository.deleteById(id);
 	}
 	
-//	@GetMapping("/api/user/{username}")
-	public User findUserByUsername(@PathVariable("username") String username) {
+	@GetMapping("/api/user/{username}")
+	public Iterable<User> findUserByUsername(@PathVariable("username") String username) {
 		return repository.findUserByUsername(username);
 	}
 	
 	@PostMapping("/api/register")
-	public User register(@RequestBody User user, HttpSession session) {
-		if (repository.findUserByUsername(user.getUsername()) == null) {
-			repository.save(user);
-			session.setAttribute("user", user);
-			return user;
+	public User register(@RequestBody User user, HttpSession session) throws Exception{
+//		System.out.println("###########" + ((List<User>)findUserByUsername(user.getUsername())).size() + "############");
+		if (((List<User>)findUserByUsername(user.getUsername())).size() != 0) {
+			throw new Exception("duplicate username");
 		}
-		return null;
+		repository.save(user);
+		session.setAttribute("user", user);
+		return user;
+		
 	}
 	
 	@PostMapping("/api/login")
