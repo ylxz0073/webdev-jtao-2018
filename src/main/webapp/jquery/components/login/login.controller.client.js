@@ -24,7 +24,7 @@
         userService.login(user).then(function(loggedin){
             console.log(loggedin);
             if (loggedin) {
-                
+                localStorage.setItem("currentLoginUser", JSON.stringify(loggedin));
                 window.location.href = "http://localhost:8080/jquery/components/profile/profile.template.client.html";
             } else {
                 alert("can't login");

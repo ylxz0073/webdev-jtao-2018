@@ -6,9 +6,13 @@ function UserServiceClient() {
     this.updateUser = updateUser;
     this.register = register;
     this.login = login;
+    this.logout = logout;
+    this.updateProfile = updateProfile;
     this.url = 'http://localhost:8080/api/user';
     this.registerUrl = 'http://localhost:8080/api/register';
     this.loginUrl = 'http://localhost:8080/api/login';
+    this.logoutUrl = 'http://localhost:8080/api/logout';
+    this.profileUrl = 'http://localhost:8080/api/profile';
     var self = this;
 
     function register(userCredential) {
@@ -39,7 +43,7 @@ function UserServiceClient() {
             }
         }).then(function(response){
             if(response.ok){
-                return true;
+                return response.json();
             } else {
                 return false;
             }
@@ -47,11 +51,29 @@ function UserServiceClient() {
     }
 
     function logout() {
+        return fetch(self.logoutUrl, {
+            method: 'post',
+            credentials: 'same-origin',
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(function(response){
+            return response.json();
+        });
 
     }
 
-    function updateProfile() {
-
+    function updateProfile(user) {
+        fetch(self.profileUrl, {
+            method: 'put',
+            credentials: 'same-origin',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(function(response){
+            return response.json();
+        });
     }
 
     function createUser(user, callback) {

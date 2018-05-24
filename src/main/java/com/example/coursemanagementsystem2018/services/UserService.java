@@ -72,10 +72,6 @@ public class UserService {
 		repository.deleteById(id);
 	}
 	
-//	@GetMapping("/api/user/{username}")
-//	public Iterable<User> findUserByUsername(@PathVariable("username") String username) {
-//		return repository.findUserByUsername(username);
-//	}
 	
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession session) throws Exception{
@@ -105,20 +101,29 @@ public class UserService {
 	
 	@PutMapping("/api/profile")
 	public User updateProfile(@RequestBody User user, HttpSession session) {
-		User userFound = (User)session.getAttribute("user");
-		if ( userFound!= null) {
-			userFound.setDateOfBirth(user.getDateOfBirth());
-			userFound.setEmail(user.getEmail());
-			userFound.setPhone(user.getPhone());
-			userFound.setRole(user.getRole());
+		User currentUser = (User)session.getAttribute("user");
+
+		System.out.println("########" + currentUser.getUsername() + "######");
+		if (currentUser != null) {
+			List<User> users = (List<User>)findAllUsers(currentUser.getUsername(), null);
+			if (users.size() > 0) {
+				User userFound = users.get(0);
+				userFound.setDateOfBirth(user.getDateOfBirth());
+				userFound.setPhone(user.getPhone());
+				userFound.setEmail(user.getEmail());
+				userFound.setRole(user.getRole());
+				repository.save(userFound);
+				return userFound;
+			}
 		}
+		
 		return null;
 	}
 	
 	@PostMapping("/api/logout")
-	public User login(HttpSession session) {
+	public User logout(HttpSession session) {
 		User cur = (User)session.getAttribute("user");
-		session.setAttribute("user", null);
+		session.invalidate();
 		return cur;
 	}
 
