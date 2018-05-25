@@ -9,12 +9,12 @@ function UserServiceClient() {
     this.logout = logout;
     this.updateProfile = updateProfile;
     this.getProfile = getProfile;
-    this.url = 'http://localhost:8080/api/user';
-    this.registerUrl = 'http://localhost:8080/api/register';
-    this.loginUrl = 'http://localhost:8080/api/login';
-    this.logoutUrl = 'http://localhost:8080/api/logout';
-    this.profileUrl = 'http://localhost:8080/api/profile';
-    var self = this
+    this.url = '/api/user';
+    this.registerUrl = '/api/register';
+    this.loginUrl = '/api/login';
+    this.logoutUrl = '/api/logout';
+    this.profileUrl = '/api/profile';
+    var self = this;
 
     function getProfile() {
         return fetch(self.profileUrl, {
@@ -22,9 +22,7 @@ function UserServiceClient() {
         }).then(function(response){
 
             return response.json();
-        // .then(function(result){
-        //         return result;
-        //     });
+
         })
     }
 
