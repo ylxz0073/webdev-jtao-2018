@@ -9,9 +9,11 @@
         $usernameFld = $('#usernameFld');
         $passwordFld = $('#passwordFld');
         $loginBtn = $('#wbdv-sign-in');
-        
+
         $loginBtn.click(login);
+
     }
+
 
     function login() {
         var username = $usernameFld.val();
@@ -27,8 +29,10 @@
 
                 window.location.href = "http://localhost:8080/jquery/components/profile/profile.template.client.html";
             } else {
-                alert("invalid credential");
 
+                // alert("invalid credential");
+                $('#wbdv-alert').css('display', 'block');
+                $('#wbdv-alert').delay(2000).slideUp(200);
             }
         });
     }

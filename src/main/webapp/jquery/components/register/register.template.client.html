@@ -11,16 +11,22 @@
           href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
           crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="register.style.client.css">
+    <link rel="stylesheet" type="text/css" href="register.style.client.css/?version=3">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="../../models/user.model.client.js"></script>
     <script src="../../services/user.service.client.js"></script>
-    <script src="register.controller.client.js/?version=4"></script>
+    <script src="register.controller.client.js/?version=19"></script>
 </head>
 <body>
 <div class="container">
+    <div id="wbdv-alert-username" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Ops!</strong> Try another username.
+    </div>
+    <div id="wbdv-alert-pasword" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Oh snap!</strong> Password doesn't match.
+    </div>
     <h1>Sign Up</h1>
     <form>
         <div class="form-group row">

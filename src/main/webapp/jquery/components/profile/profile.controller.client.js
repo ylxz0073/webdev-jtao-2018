@@ -51,7 +51,9 @@
         userService.updateProfile(user).then(function(updated){
             if(updated) {
                 console.log(updated);
-                alert("update success!");
+                // alert("update success!");
+                $('#wbdv-alert-success').css('display', 'block');
+                $('#wbdv-alert-success').delay(2000).slideUp(200);
             }
         }) ;
     }
