@@ -2,6 +2,7 @@ package com.example.coursemanagementsystem2018.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,5 +46,13 @@ public class ModuleService {
 		}
 		return null;
 	}
+	
+	@DeleteMapping("/api/course/{courseId}/module/{mId}")
+	public void deleteModule(
+	  @PathVariable("mId")
+	    int moduleId) {
+		moduleRepository.deleteById(moduleId);
+	}
+ 
 }
 
