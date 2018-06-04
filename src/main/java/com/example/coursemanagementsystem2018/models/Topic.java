@@ -1,28 +1,22 @@
 package com.example.coursemanagementsystem2018.models;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Lesson {
+public class Topic {
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private int id;
   private String title;
   @ManyToOne
   @JsonIgnore
-  private Module module;
-  @OneToMany(mappedBy="lesson", cascade = CascadeType.REMOVE, orphanRemoval = true)
-  private List<Topic> topics;
+  private Lesson lesson;
   
   public int getId() {
 	  return id;
@@ -36,17 +30,11 @@ public class Lesson {
   public void setTitle(String title) {
 	  this.title = title;
   }
-  public Module getModule() {
-	  return module;
+  public Lesson getLesson() {
+	  return lesson;
   }
-  public void setModule(Module module) {
-	  this.module = module;
+  public void setLesson(Lesson lesson) {
+	  this.lesson = lesson;
   }
-	public List<Topic> getTopics() {
-		return topics;
-	}
-	public void setTopics(List<Topic> topics) {
-		this.topics = topics;
-	}
-  
+ 
 }
