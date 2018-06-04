@@ -58,6 +58,11 @@ public class LessonService {
 		
 	}
 	
+	@GetMapping("/api/lesson")
+	public Iterable<Lesson> findAllLessons() {
+		return lessonRepository.findAll(); 
+	}
+	
 	@DeleteMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lessonId}")
 	public void deleteLesson(
 	  @PathVariable("lessonId")

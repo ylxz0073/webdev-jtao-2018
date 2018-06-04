@@ -47,6 +47,11 @@ public class ModuleService {
 		return null;
 	}
 	
+	@GetMapping("/api/module")
+	public List<Module> findAllModules(){
+		return (List<Module>)moduleRepository.findAll(); 
+	}
+	
 	@DeleteMapping("/api/course/{courseId}/module/{mId}")
 	public void deleteModule(
 	  @PathVariable("mId")

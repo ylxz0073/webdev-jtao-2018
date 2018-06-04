@@ -61,6 +61,11 @@ public class TopicService {
 		
 	}
 	
+	@GetMapping("/api/topic")
+	public Iterable<Topic> findAllLessons() {
+		return topicRepository.findAll(); 
+	}
+	
 	@DeleteMapping("/api/course/{courseId}/module/{moduleId}/lesson/{lessonId}/topic/{topicId}")
 	public void deleteTopic(
 	  @PathVariable("topicId")
