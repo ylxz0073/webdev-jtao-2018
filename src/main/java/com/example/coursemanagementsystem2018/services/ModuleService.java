@@ -14,6 +14,7 @@ import com.example.coursemanagementsystem2018.models.Module;
 import com.example.coursemanagementsystem2018.repositories.CourseRepository;
 import com.example.coursemanagementsystem2018.repositories.ModuleRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 @RestController
@@ -31,6 +32,7 @@ public class ModuleService {
 			if(data.isPresent()) {
 				Course course = data.get();
 				newModule.setCourse(course);
+				newModule.getCourse().setModified(new Date());
 				return moduleRepository.save(newModule);
 			}
 			return null;
@@ -56,6 +58,11 @@ public class ModuleService {
 	public void deleteModule(
 	  @PathVariable("mId")
 	    int moduleId) {
+		Optional<Module> module = moduleRepository.findById(moduleId);
+		if(module.isPresent()) {
+			Module data = module.get();
+			data.getCourse().setModified(new Date());
+		}
 		moduleRepository.deleteById(moduleId);
 	}
  

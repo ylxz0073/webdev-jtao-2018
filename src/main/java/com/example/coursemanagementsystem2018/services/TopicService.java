@@ -1,5 +1,6 @@
 package com.example.coursemanagementsystem2018.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,7 @@ public class TopicService {
 			if(data.isPresent()) {
 				Lesson lesson = data.get();
 				newTopic.setLesson(lesson);
+				newTopic.getLesson().getModule().getCourse().setModified(new Date());
 				return topicRepository.save(newTopic);
 			}
 			System.out.println("##### " + lessonId + " data not present #####");
@@ -70,6 +72,10 @@ public class TopicService {
 	public void deleteTopic(
 	  @PathVariable("topicId")
 	    int topicId) {
+		Optional<Topic> data = topicRepository.findById(topicId);
+		if(data.isPresent()) {
+			data.get().getLesson().getModule().getCourse().setModified(new Date());
+		}
 		topicRepository.deleteById(topicId);
 	}
 	

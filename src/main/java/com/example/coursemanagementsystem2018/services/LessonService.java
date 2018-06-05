@@ -1,5 +1,6 @@
 package com.example.coursemanagementsystem2018.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,7 @@ public class LessonService {
 			if(data.isPresent()) {
 				Module module = data.get();
 				newLesson.setModule(module);
+				newLesson.getModule().getCourse().setModified(new Date());
 				return lessonRepository.save(newLesson);
 			}
 			System.out.println("##### " + moduleId + " data not present #####");
@@ -67,6 +69,10 @@ public class LessonService {
 	public void deleteLesson(
 	  @PathVariable("lessonId")
 	    int lessonId) {
+		Optional<Lesson> data = lessonRepository.findById(lessonId);
+		if (data.isPresent()) {
+			data.get().getModule().getCourse().setModified(new Date());
+		}
 		lessonRepository.deleteById(lessonId);
 	}
 	
