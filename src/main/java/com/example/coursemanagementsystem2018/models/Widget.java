@@ -32,6 +32,10 @@ public class Widget {
 		unordered
 	}
 	
+	@ManyToOne
+	@JsonIgnore
+	private Topic topic;
+	
 	
 	public int getSize() {
 		return size;
@@ -101,9 +105,7 @@ public class Widget {
 	public void setTopic(Topic topic) {
 		this.topic = topic;
 	}
-	@ManyToOne
-	@JsonIgnore
-	private Topic topic;
+	
 	
 	public String getName() {
 		return name;

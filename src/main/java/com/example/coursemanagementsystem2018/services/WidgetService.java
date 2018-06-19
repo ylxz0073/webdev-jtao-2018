@@ -39,20 +39,23 @@ public class WidgetService {
 	}
 	
 	@PostMapping("/api/topic/{topicId}/widget")
-	public Widget createWidgetForTopic(@PathVariable("topicId") int topicId,
-			@RequestBody Widget newWidget) {
-			
-			Optional<Topic> data = topicRepository.findById(topicId);
-			if(data.isPresent()) {
-				Topic topic = data.get();
-				newWidget.setTopic(topic);
-				newWidget.getTopic().getLesson().getModule().getCourse().setModified(new Date());
-				return repository.save(newWidget);
+	public void saveWidgetForTopic(@PathVariable("topicId") int topicId, @RequestBody List<Widget> newWidgets) {
+		
+		Optional<Topic> data = topicRepository.findById(topicId);
+		if(data.isPresent()) {
+			Topic topic = data.get();
+			List<Widget> widgets = topic.getWidgets();
+			repository.deleteAll(widgets);
+			for(Widget widget: newWidgets) {
+				widget.setTopic(topic);
 			}
-			System.out.println("##### " + topicId + " data not present #####");
-			return null;
-
+			repository.saveAll(newWidgets);
 		}
+		
+		
+		
+	}
+	
 	
 	@GetMapping("/api/widgets")
 	public List<Widget> findAllWidgets() {
@@ -62,7 +65,7 @@ public class WidgetService {
 	}
 	
 	@GetMapping("/api/topic/{topicId}/widget")
-	public List<Widget> findAllTopicsForLesson(
+	public List<Widget> findAllWidgetsForTopic(
 			@PathVariable("topicId") int topicId){
 		Optional<Topic> data = topicRepository.findById(topicId);
 		if(data.isPresent()) {
