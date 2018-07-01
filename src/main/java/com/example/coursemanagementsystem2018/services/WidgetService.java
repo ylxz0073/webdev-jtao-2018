@@ -33,6 +33,7 @@ public class WidgetService {
 	public void saveAllWidgets(@RequestBody List<Widget> widgets) {
 		repository.deleteAll();
 		for(Widget widget: widgets) {
+			
 			repository.save(widget);
 			
 		}
@@ -40,13 +41,15 @@ public class WidgetService {
 	
 	@PostMapping("/api/topic/{topicId}/widget")
 	public void saveWidgetForTopic(@PathVariable("topicId") int topicId, @RequestBody List<Widget> newWidgets) {
-		
+		System.out.println("**** save widget ****");
 		Optional<Topic> data = topicRepository.findById(topicId);
 		if(data.isPresent()) {
 			Topic topic = data.get();
 			List<Widget> widgets = topic.getWidgets();
 			repository.deleteAll(widgets);
 			for(Widget widget: newWidgets) {
+				System.out.println(widget.getText());
+				System.out.println(widget.getName());
 				widget.setTopic(topic);
 			}
 			repository.saveAll(newWidgets);
