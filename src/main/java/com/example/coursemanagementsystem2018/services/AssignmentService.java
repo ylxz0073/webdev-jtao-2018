@@ -87,6 +87,7 @@ public class AssignmentService {
 			Assignment assignment = data.get();
 			assignment.setAssignmentTitle(newAssignment.getAssignmentTitle());
 			assignment.setParagraph(newAssignment.getParagraph());
+			assignment.setPoints(newAssignment.getPoints());
 			repository.save(assignment);
 			return assignment;
 		}
