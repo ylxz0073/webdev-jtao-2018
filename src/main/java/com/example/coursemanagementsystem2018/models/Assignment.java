@@ -1,6 +1,5 @@
 package com.example.coursemanagementsystem2018.models;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity

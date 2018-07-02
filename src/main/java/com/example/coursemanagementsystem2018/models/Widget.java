@@ -1,7 +1,6 @@
 package com.example.coursemanagementsystem2018.models;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
